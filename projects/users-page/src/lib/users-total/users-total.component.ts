@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users-total.component.scss']
 })
 export class UsersTotalComponent implements OnInit {
+  total=1000000;
 
   constructor() { }
 
