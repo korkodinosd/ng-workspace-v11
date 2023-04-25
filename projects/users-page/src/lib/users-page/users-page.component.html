@@ -5,7 +5,7 @@
             <lib-users-users-list [users]="users" (delete)="onDelete($event)"></lib-users-users-list>
         </div>
         <div class="col-6">
-            <lib-users-user-detail></lib-users-user-detail>
+            <lib-users-user-detail (save)="onCreate($event)"></lib-users-user-detail>
         </div>
     </div>
 </div>

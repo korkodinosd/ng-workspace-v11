@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'lib-users-user-detail',
@@ -13,13 +14,15 @@ export class UserDetailComponent implements OnInit {
     salary: new FormControl(12345,[Validators.required])
   })
 
+  @Output() save = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   onSubmit(){
-    console.log(this.userForm.value);
+    this.save.emit({...this.userForm.value});
   }
 
 }

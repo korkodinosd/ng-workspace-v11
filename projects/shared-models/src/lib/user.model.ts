@@ -6,4 +6,4 @@ export interface UserModel {
   }
   
   
-  export type UserRequiredProps = Pick<UserModel, 'name' | 'salary'>;
+export type UserRequiredProps = Pick<UserModel, 'name' | 'salary'>;

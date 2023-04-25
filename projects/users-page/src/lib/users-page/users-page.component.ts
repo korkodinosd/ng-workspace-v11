@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
-import { UserModel } from 'shared-models';
+import { UserModel, UserRequiredProps } from 'shared-models';
 
 @Component({
   selector: 'lib-users-users-page',
@@ -20,6 +20,12 @@ export class UsersPageComponent implements OnInit {
 
   onDelete(user: UserModel) {
     this._userService.userDelete(user.id).subscribe(() => {
+      this.getAllUsers();
+    });
+  }
+
+  onCreate(userRequiredProps:UserRequiredProps){
+    this._userService.userCreate(userRequiredProps).subscribe(() => {
       this.getAllUsers();
     });
   }
