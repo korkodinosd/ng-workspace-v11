@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserModel } from 'shared-models';
 
 @Component({
@@ -8,27 +8,8 @@ import { UserModel } from 'shared-models';
 })
 export class UsersListComponent implements OnInit {
 
-  users: UserModel[] = [
-    {
-      "id": "1",
-      "name": "Leanne",
-      "lastname": "Graham",
-      "salary": 200000
-    },
-    {
-      "id": "2",
-      "name": "Ervin",
-      "lastname": "Howell",
-      "salary": 210000
-    },
-    {
-      "id": "3",
-      "name": "Clementine",
-      "lastname": "Bauch",
-      "salary": 220000
-    }
-  ];
-  
+  @Input() users: UserModel[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
