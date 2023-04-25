@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserModel } from 'shared-models';
 
 @Component({
@@ -9,6 +9,7 @@ import { UserModel } from 'shared-models';
 export class UsersListComponent implements OnInit {
 
   @Input() users: UserModel[] = [];
+  @Output() delete = new EventEmitter();
 
   constructor() { }
 

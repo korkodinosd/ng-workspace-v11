@@ -18,6 +18,12 @@ export class UsersPageComponent implements OnInit {
     this._userService.getAll().subscribe((users) => this.users = users);
   }
 
+  onDelete(user: UserModel) {
+    this._userService.userDelete(user.id).subscribe(() => {
+      this.getAllUsers();
+    });
+  }
+
   ngOnInit(): void {
   }
 
