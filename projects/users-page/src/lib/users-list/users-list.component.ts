@@ -10,6 +10,7 @@ export class UsersListComponent implements OnInit {
 
   @Input() users: UserModel[] = [];
   @Output() delete = new EventEmitter();
+  @Output() select = new EventEmitter();
 
   constructor() { }
 

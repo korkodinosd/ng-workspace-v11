@@ -2,10 +2,12 @@
     <div class="row">
         <div class="col-6">
             <lib-users-users-total></lib-users-users-total>
-            <lib-users-users-list [users]="users" (delete)="onDelete($event)"></lib-users-users-list>
+            <lib-users-users-list [users]="users" 
+                                  (delete)="onDelete($event)"
+                                  (select)="onSelect($event)"></lib-users-users-list>
         </div>
         <div class="col-6">
-            <lib-users-user-detail (save)="onCreate($event)"></lib-users-user-detail>
+            <lib-users-user-detail (save)="onCreate($event)" [user]="selectedUser"></lib-users-user-detail>
         </div>
     </div>
 </div>

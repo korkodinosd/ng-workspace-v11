@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserModel, UserRequiredProps } from 'shared-models';
 
 
 @Component({
@@ -9,12 +10,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UserDetailComponent implements OnInit {
   userForm:FormGroup = new FormGroup({
-    name: new FormControl('Dimitris',[Validators.required]),
-    lastname: new FormControl('Korkodinos'),
-    salary: new FormControl(12345,[Validators.required])
+    name: new FormControl('',[Validators.required]),
+    lastname: new FormControl(''),
+    salary: new FormControl(0,[Validators.required])
   })
 
   @Output() save = new EventEmitter();
+  
+  @Input() set user(user:UserModel | null){
+    this.userForm.reset();
+    if(user){
+      this.userForm.setValue({
+        name:user.name,
+        lastname:user.lastname,
+        salary:user.salary
+      });
+    }
+  }
 
   constructor() { }
 

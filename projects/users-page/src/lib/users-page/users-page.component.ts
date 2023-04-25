@@ -9,6 +9,7 @@ import { UserModel, UserRequiredProps } from 'shared-models';
 })
 export class UsersPageComponent implements OnInit {
   users:UserModel[] = [];
+  selectedUser: UserModel | null= null;
 
   constructor(private _userService:UsersService) {
     this.getAllUsers();
@@ -28,6 +29,10 @@ export class UsersPageComponent implements OnInit {
     this._userService.userCreate(userRequiredProps).subscribe(() => {
       this.getAllUsers();
     });
+  }
+
+  onSelect(user: UserModel) {
+    this.selectedUser = user;
   }
 
   ngOnInit(): void {
