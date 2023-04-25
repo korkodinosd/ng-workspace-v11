@@ -13,6 +13,10 @@
       "material": [
         "dist/material/material",
         "dist/material"
+      ],
+      "shared-models": [
+        "dist/shared-models/shared-models",
+        "dist/shared-models"
       ]
     },
     "declaration": false,
