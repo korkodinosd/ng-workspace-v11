@@ -30,6 +30,7 @@ export class UsersPageComponent implements OnInit {
     this._userService.userDelete(user.id).subscribe(() => {
       this.getAllUsers();
       this.onCancel();
+      alert('User deleted!');
     });
   }
 
@@ -37,10 +38,12 @@ export class UsersPageComponent implements OnInit {
     if('id' in user){
       this._userService.userUpdate(user).subscribe(() => {
         this.getAllUsers();
+        alert('User updated!');
       });
     }else{
       this._userService.userCreate(user).subscribe(() => {
         this.getAllUsers();
+        alert('User created!');
       });
     }
     this.getAllUsers();

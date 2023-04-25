@@ -48,8 +48,12 @@ export class UserDetailComponent implements OnInit {
       this.editedUser.salary = this.userForm.get('salary')?.value;
       this.save.emit({...this.editedUser});
     }else{
-      this.save.emit({...this.userForm.value});
-      this.userForm.reset();
+      if(this.userForm.get('name')?.value !== null && this.userForm.get('name')?.value !== ''){
+        this.save.emit({...this.userForm.value});
+        this.userForm.reset();
+      }else{
+        alert('Please fill out the form or select a user from the list');
+      }
     }
   }
 
