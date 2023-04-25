@@ -17,6 +17,10 @@
       "shared-models": [
         "dist/shared-models/shared-models",
         "dist/shared-models"
+      ],
+      "users-page": [
+        "dist/users-page/users-page",
+        "dist/users-page"
       ]
     },
     "declaration": false,

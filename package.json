@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "json-server": "json-server db.json --watch",
-    "lib:shared-models":"ng build shared-models --watch=true"
+    "lib:shared-models": "ng build shared-models --watch=true",
+    "lib:users-page": "ng build users-page --watch=true"
   },
   "private": true,
   "dependencies": {
