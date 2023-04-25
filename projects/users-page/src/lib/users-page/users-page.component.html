@@ -7,7 +7,9 @@
                                   (select)="onSelect($event)"></lib-users-users-list>
         </div>
         <div class="col-6">
-            <lib-users-user-detail (save)="onCreate($event)" [user]="selectedUser"></lib-users-user-detail>
+        <lib-users-user-detail (save)="onCreate($event)" 
+                                [user]="selectedUser"
+                                (cancel)="onCancel()"></lib-users-user-detail>
         </div>
     </div>
 </div>

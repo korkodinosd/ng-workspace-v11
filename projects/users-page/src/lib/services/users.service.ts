@@ -58,5 +58,13 @@ export class UsersService {
       );
   }
 
+  public userUpdate(user: UserModel) {
+    return this._httpClient.put<UserModel>(
+      `http://localhost:3000/users/${user.id}`,
+      JSON.stringify(user),
+      HEADER
+    );
+  }
+
 
 }

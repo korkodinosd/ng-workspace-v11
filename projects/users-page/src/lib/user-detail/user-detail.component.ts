@@ -9,6 +9,9 @@ import { UserModel, UserRequiredProps } from 'shared-models';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
+
+  editedUser:UserModel | null = null;
+
   userForm:FormGroup = new FormGroup({
     name: new FormControl('',[Validators.required]),
     lastname: new FormControl(''),
@@ -19,7 +22,11 @@ export class UserDetailComponent implements OnInit {
   
   @Input() set user(user:UserModel | null){
     this.userForm.reset();
+
+    this.editedUser = null;
+
     if(user){
+      this.editedUser = user;
       this.userForm.setValue({
         name:user.name,
         lastname:user.lastname,
@@ -27,6 +34,7 @@ export class UserDetailComponent implements OnInit {
       });
     }
   }
+  @Output() cancel = new EventEmitter();
 
   constructor() { }
 
@@ -34,7 +42,15 @@ export class UserDetailComponent implements OnInit {
   }
 
   onSubmit(){
-    this.save.emit({...this.userForm.value});
+    if(this.editedUser){
+      this.editedUser.name = this.userForm.get('name')?.value;
+      this.editedUser.lastname = this.userForm.get('lastname')?.value;
+      this.editedUser.salary = this.userForm.get('salary')?.value;
+      this.save.emit({...this.editedUser});
+    }else{
+      this.save.emit({...this.userForm.value});
+      this.userForm.reset();
+    }
   }
 
 }

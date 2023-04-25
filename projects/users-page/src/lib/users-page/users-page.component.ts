@@ -22,17 +22,29 @@ export class UsersPageComponent implements OnInit {
   onDelete(user: UserModel) {
     this._userService.userDelete(user.id).subscribe(() => {
       this.getAllUsers();
+      this.onCancel();
     });
   }
 
-  onCreate(userRequiredProps:UserRequiredProps){
-    this._userService.userCreate(userRequiredProps).subscribe(() => {
-      this.getAllUsers();
-    });
+  onCreate(user:UserRequiredProps | UserModel){
+    if('id' in user){
+      this._userService.userUpdate(user).subscribe(() => {
+        this.getAllUsers();
+      });
+    }else{
+      this._userService.userCreate(user).subscribe(() => {
+        this.getAllUsers();
+      });
+    }
+    this.getAllUsers();
   }
 
   onSelect(user: UserModel) {
     this.selectedUser = user;
+  }
+
+  onCancel() {
+    this.selectedUser = null;
   }
 
   ngOnInit(): void {
