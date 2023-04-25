@@ -10,13 +10,20 @@ import { UserModel, UserRequiredProps } from 'shared-models';
 export class UsersPageComponent implements OnInit {
   users:UserModel[] = [];
   selectedUser: UserModel | null= null;
+  total = 0;
 
   constructor(private _userService:UsersService) {
     this.getAllUsers();
    }
 
   getAllUsers(){
-    this._userService.getAll().subscribe((users) => this.users = users);
+    this._userService.getAll().subscribe((users) => {
+      this.users = users;
+      this.total = 0;
+      this.users.forEach(user => {
+        this.total += user.salary;
+      });
+    });
   }
 
   onDelete(user: UserModel) {

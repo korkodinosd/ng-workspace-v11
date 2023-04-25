@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-users-users-total',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users-total.component.scss']
 })
 export class UsersTotalComponent implements OnInit {
-  total=1000000;
+
+  @Input() total = 0;
 
   constructor() { }
 
