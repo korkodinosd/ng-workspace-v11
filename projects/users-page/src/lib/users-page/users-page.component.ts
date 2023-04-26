@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { UserModel, UserRequiredProps } from 'shared-models';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAllUsersSelector } from '../state/selectors/users-page.selector';
+import { selectAllUsersSelector, selectActiveUserSelector } from '../state/selectors/users-page.selector';
 import * as UsersPageActions from '../state/actions/users-page.actions'
 
 @Component({
@@ -13,11 +13,12 @@ import * as UsersPageActions from '../state/actions/users-page.actions'
 })
 export class UsersPageComponent implements OnInit {
   users$: Observable<UserModel[]>;
-  selectedUser: UserModel | null= null;
+  selectedUser$: Observable<UserModel | null>;
   total = 0;
 
   constructor(private _userService:UsersService, private store:Store) {
     this.users$ = store.select(selectAllUsersSelector);
+    this.selectedUser$ = store.select(selectActiveUserSelector);
    }
 
   /*getAllUsers(){
@@ -54,11 +55,11 @@ export class UsersPageComponent implements OnInit {
   }
 
   onSelect(user: UserModel) {
-    this.selectedUser = user;
+    this.store.dispatch(UsersPageActions.selectUser({userId: user.id}));
   }
 
   onCancel() {
-    this.selectedUser = null;
+    this.selectedUser$ = of(null);
   }
 
   ngOnInit(): void {

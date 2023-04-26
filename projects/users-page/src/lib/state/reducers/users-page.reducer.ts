@@ -1,15 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
 import { UserModel } from 'shared-models';
 import * as UsersApiActions from '../actions/users-api.actions';
+import * as UsersPageActions from '../actions/users-page.actions';
 
 export interface State {
   userList: UserModel[];
-  selectedUserId: string | null;
+  activeUserId: string | null;
 }
 
 export const initialState: State = {
   userList: [],
-  selectedUserId: null,
+  activeUserId: null,
 };
 
 export const reducer = createReducer(
@@ -19,7 +20,14 @@ export const reducer = createReducer(
       ...state,
       userList: action.users,
     };
+  }),on(UsersPageActions.selectUser, (state,action) => {
+    return {
+      ...state,
+      activeUserId: action.userId,
+    };
   })
+
 );
 
 export const selectAllUsers = (state: State) => state.userList;
+export const selectActiveUserId = (state: State) => state.activeUserId;

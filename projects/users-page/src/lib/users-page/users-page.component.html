@@ -8,7 +8,7 @@
         </div>
         <div class="col-6">
         <lib-users-user-detail (save)="onCreate($event)" 
-                                [user]="selectedUser"
+                                [user]="selectedUser$ | async"
                                 (cancel)="onCancel()"></lib-users-user-detail>
         </div>
     </div>

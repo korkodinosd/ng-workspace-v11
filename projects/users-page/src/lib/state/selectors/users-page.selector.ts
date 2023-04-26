@@ -22,3 +22,21 @@ export const selectAllUsersSelector = createSelector(
   selectUsersState,
   fromReducer.selectAllUsers//(userState) => fromUsers.selectAll(userState)
 );
+
+
+/**
+ * Active User Selectors
+ */
+export const selectActiveUser = createSelector(
+  fromReducer.selectAllUsers,
+  fromReducer.selectActiveUserId,
+  (users, activeUserId)=>{
+    return users.find((user) => user.id === activeUserId) || null;
+  }
+)
+
+export const selectActiveUserSelector = createSelector(
+  selectUsersState,
+  selectActiveUser //(userState) => fromUsers.selectActiveUser(userState)
+);
+
