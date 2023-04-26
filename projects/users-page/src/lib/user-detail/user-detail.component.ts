@@ -40,6 +40,7 @@ export class UserDetailComponent {
   @Output() cancel = new EventEmitter();
 
   onSubmit(user: UserModel) {
+    this.userForm.reset();
     this.save.emit({ ...this.originalUser, ...user });
   }
 

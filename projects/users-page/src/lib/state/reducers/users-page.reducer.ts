@@ -44,6 +44,12 @@ export const reducer = createReducer(
       userList: updateUser(state.userList, action.user),
       activeUserId: null,
     };
+  }),
+  on(UsersApiActions.userDeleted, (state, action) => {
+    return {
+      userList: deleteUser(state.userList, action.userId),
+      activeUserId: null,
+    };
   })
 );
 
@@ -54,3 +60,4 @@ const updateUser = (users: UserModel[], changes: UserModel) =>
   users.map((user) => {
     return user.id === changes.id ? { ...user, ...changes } : user;
   });
+const deleteUser = (users: UserModel[], userId: string) => users.filter((user) => userId !== user.id);

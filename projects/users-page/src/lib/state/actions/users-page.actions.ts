@@ -16,3 +16,7 @@ export const updateUser = createAction(
     '[Users Page] Update User',
     props<{userId: string, changes: UserRequiredProps}>()
 );
+export const deleteUser = createAction (
+    '[Users Page] Delete a User',
+    props<{userId: string }>()
+);

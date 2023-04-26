@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UsersPageActions from '../actions/users-page.actions';
 import * as UsersApiActions from '../actions/users-api.actions';
 import { UsersService } from '../../services/users.service';
-import { map, exhaustMap, concatMap } from 'rxjs/operators';
+import { map, exhaustMap, concatMap, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -33,16 +33,29 @@ export class UsersApiEffectsService {
     )
   );
 
-
-  updateUser$ = createEffect(()=>
+  updateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UsersPageActions.updateUser),
-      concatMap((action)=>
+      concatMap((action) =>
         this.usersService
-        .userUpdate(action.userId, action.changes)
-        .pipe(map((user) => UsersApiActions.userUpdated({user})))
+          .userUpdate(action.userId, action.changes)
+          .pipe(map((user) => UsersApiActions.userUpdated({ user })))
       )
     )
   );
 
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UsersPageActions.deleteUser),
+      mergeMap((action) =>
+        this.usersService
+          .userDelete(action.userId)
+          .pipe(
+            map(() => UsersApiActions.userDeleted({ userId: action.userId }))
+          )
+      )
+    )
+  );
+
+  
 }

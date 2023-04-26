@@ -16,3 +16,8 @@ export const userUpdated = createAction(
     '[Users API] User Updated',
     props<{user: UserModel}>()
 );
+
+export const userDeleted = createAction(
+    '[Users API] User Deleted',
+    props<{userId: string}>()
+);

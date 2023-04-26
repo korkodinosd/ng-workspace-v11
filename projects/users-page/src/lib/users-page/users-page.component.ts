@@ -23,10 +23,7 @@ export class UsersPageComponent implements OnInit {
 
 
   onDelete(user: UserModel) {
-    this._userService.userDelete(user.id).subscribe(() => {
-      this.onCancel();
-      alert('User deleted!');
-    });
+    this.store.dispatch(UsersPageActions.deleteUser({userId: user.id}));
   }
 
   onCreate(user:UserRequiredProps | UserModel){
