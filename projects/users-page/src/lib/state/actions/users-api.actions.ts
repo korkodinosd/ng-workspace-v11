@@ -6,3 +6,8 @@ export const usersLoaded = createAction(
     '[Users API] Users Loaded Success',
     props<{users: UserModel[]}>()
 );
+
+export const userCreated = createAction(
+    '[Users API] User Created',
+    props<{user: UserModel}>()
+);

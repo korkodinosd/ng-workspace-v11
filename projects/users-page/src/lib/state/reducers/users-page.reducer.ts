@@ -30,9 +30,16 @@ export const reducer = createReducer(
       ...state,
       activeUserId: null,
     };
-  })
+  }),on(UsersApiActions.userCreated, (state, action)=> {
+    return {
+      userList: createUser(state.userList, action.user),
+      activeUserId:null,
+    }
+  }),
+
 
 );
 
 export const selectAllUsers = (state: State) => state.userList;
 export const selectActiveUserId = (state: State) => state.activeUserId;
+const createUser = (users: UserModel[], user: UserModel) => [...users, user];

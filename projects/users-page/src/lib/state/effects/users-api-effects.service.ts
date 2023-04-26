@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UsersPageActions from '../actions/users-page.actions';
 import * as UsersApiActions from '../actions/users-api.actions';
 import { UsersService } from '../../services/users.service';
-import { map, exhaustMap } from 'rxjs/operators';
+import { map, exhaustMap, concatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,4 +21,15 @@ export class UsersApiEffectsService {
       })
     );
   });
+
+  createUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UsersPageActions.createUser),
+      concatMap((action) =>
+        this.usersService
+          .userCreate(action.user)
+          .pipe(map((user) => UsersApiActions.userCreated({ user })))
+      )
+    )
+  );
 }

@@ -4,7 +4,7 @@ import { UserModel, UserRequiredProps } from 'shared-models';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectAllUsersSelector, selectActiveUserSelector } from '../state/selectors/users-page.selector';
-import * as UsersPageActions from '../state/actions/users-page.actions'
+import * as UsersPageActions from '../state/actions/users-page.actions';
 
 @Component({
   selector: 'lib-users-users-page',
@@ -21,19 +21,9 @@ export class UsersPageComponent implements OnInit {
     this.selectedUser$ = store.select(selectActiveUserSelector);
    }
 
-  /*getAllUsers(){
-    this._userService.getAll().subscribe((users) => {
-      this.users = users;
-      this.total = 0;
-      this.users.forEach(user => {
-        this.total += user.salary;
-      });
-    });
-  }*/
 
   onDelete(user: UserModel) {
     this._userService.userDelete(user.id).subscribe(() => {
-      //this.getAllUsers();
       this.onCancel();
       alert('User deleted!');
     });
@@ -42,17 +32,19 @@ export class UsersPageComponent implements OnInit {
   onCreate(user:UserRequiredProps | UserModel){
     if('id' in user){
       this._userService.userUpdate(user).subscribe(() => {
-        //this.getAllUsers();
         alert('User updated!');
       });
     }else{
-      this._userService.userCreate(user).subscribe(() => {
-        //this.getAllUsers();
-        alert('User created!');
-      });
+      this.saveUser(user);
     }
-    //this.getAllUsers();
   }
+
+
+  saveUser(userProps: UserRequiredProps) {
+    this.store.dispatch(UsersPageActions.createUser({user: userProps}));
+  }
+
+
 
   onSelect(user: UserModel) {
     this.store.dispatch(UsersPageActions.selectUser({userId: user.id}));
