@@ -59,7 +59,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   onCancel() {
-    this.selectedUser$ = of(null);
+    this.store.dispatch(UsersPageActions.clearSelectedUser());
   }
 
   ngOnInit(): void {

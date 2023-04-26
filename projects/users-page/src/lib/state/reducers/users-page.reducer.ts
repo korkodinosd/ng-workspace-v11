@@ -25,6 +25,11 @@ export const reducer = createReducer(
       ...state,
       activeUserId: action.userId,
     };
+  }),on(UsersPageActions.clearSelectedUser, (state,action) => {
+    return {
+      ...state,
+      activeUserId: null,
+    };
   })
 
 );
