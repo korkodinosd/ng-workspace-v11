@@ -31,9 +31,7 @@ export class UsersPageComponent implements OnInit {
 
   onCreate(user:UserRequiredProps | UserModel){
     if('id' in user){
-      this._userService.userUpdate(user).subscribe(() => {
-        alert('User updated!');
-      });
+      this.updateUser(user);
     }else{
       this.saveUser(user);
     }
@@ -42,6 +40,10 @@ export class UsersPageComponent implements OnInit {
 
   saveUser(userProps: UserRequiredProps) {
     this.store.dispatch(UsersPageActions.createUser({user: userProps}));
+  }
+
+  updateUser(user: UserModel) {
+    this.store.dispatch(UsersPageActions.updateUser({userId: user.id ,changes: user}));
   }
 
 

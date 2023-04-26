@@ -32,4 +32,17 @@ export class UsersApiEffectsService {
       )
     )
   );
+
+
+  updateUser$ = createEffect(()=>
+    this.actions$.pipe(
+      ofType(UsersPageActions.updateUser),
+      concatMap((action)=>
+        this.usersService
+        .userUpdate(action.userId, action.changes)
+        .pipe(map((user) => UsersApiActions.userUpdated({user})))
+      )
+    )
+  );
+
 }

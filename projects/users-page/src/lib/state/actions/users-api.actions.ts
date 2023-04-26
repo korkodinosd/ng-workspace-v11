@@ -11,3 +11,8 @@ export const userCreated = createAction(
     '[Users API] User Created',
     props<{user: UserModel}>()
 );
+
+export const userUpdated = createAction(
+    '[Users API] User Updated',
+    props<{user: UserModel}>()
+);

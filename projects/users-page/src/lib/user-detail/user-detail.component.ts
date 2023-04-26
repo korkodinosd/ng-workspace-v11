@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserModel, UserRequiredProps } from 'shared-models';
 
@@ -8,9 +8,9 @@ import { UserModel, UserRequiredProps } from 'shared-models';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent {
 
-  editedUser:UserModel | null = null;
+  originalUser: UserModel | undefined;
 
   userForm:FormGroup = new FormGroup({
     name: new FormControl('',[Validators.required]),
@@ -20,41 +20,27 @@ export class UserDetailComponent implements OnInit {
 
   @Output() save = new EventEmitter();
   
-  @Input() set user(user:UserModel | null){
+  @Input() set user(user: UserModel | null) {
     this.userForm.reset();
+    this.originalUser = undefined;
 
-    this.editedUser = null;
-
-    if(user){
-      this.editedUser = user;
+    if (user) {
+      if(!user.lastname){
+        user.lastname = '';
+      }
       this.userForm.setValue({
-        name:user.name,
-        lastname:user.lastname,
-        salary:user.salary
+        name: user.name,
+        lastname: user.lastname,
+        salary: user.salary
       });
+ 
+      this.originalUser = user;
     }
   }
   @Output() cancel = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  onSubmit(){
-    if(this.editedUser){
-      this.editedUser.name = this.userForm.get('name')?.value;
-      this.editedUser.lastname = this.userForm.get('lastname')?.value;
-      this.editedUser.salary = this.userForm.get('salary')?.value;
-      this.save.emit({...this.editedUser});
-    }else{
-      if(this.userForm.get('name')?.value !== null && this.userForm.get('name')?.value !== ''){
-        this.save.emit({...this.userForm.value});
-        this.userForm.reset();
-      }else{
-        alert('Please fill out the form or select a user from the list');
-      }
-    }
+  onSubmit(user: UserModel) {
+    this.save.emit({ ...this.originalUser, ...user });
   }
 
 }

@@ -1,11 +1,11 @@
 <mat-card class="user-card">
     <mat-card-header>
         <mat-card-title>
-            <h1 *ngIf="!editedUser; else editUser">Create User</h1>
+            <h1 *ngIf="!originalUser; else editUser">Create User</h1>
             <ng-template #editUser><h1>Edit User</h1></ng-template>
         </mat-card-title>
     </mat-card-header>
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
         <mat-card-content class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
@@ -24,7 +24,7 @@
         </mat-card-content>
         <mat-card-actions>
             <button type="submit" color="accent" mat-raised-button>
-                <span *ngIf="!editedUser; else updateText">Save</span>
+                <span *ngIf="!originalUser; else updateText">Save</span>
                 <ng-template #updateText>Update</ng-template>
             </button>
             <button type="button" mat-button (click)="cancel.emit()">Cancel</button>

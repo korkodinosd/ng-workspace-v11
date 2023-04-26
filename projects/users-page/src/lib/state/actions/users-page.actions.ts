@@ -12,3 +12,7 @@ export const createUser = createAction(
     '[Users Page] Create User',
     props<{user: UserRequiredProps}>()
 );
+export const updateUser = createAction(
+    '[Users Page] Update User',
+    props<{userId: string, changes: UserRequiredProps}>()
+);

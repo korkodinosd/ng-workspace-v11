@@ -20,26 +20,37 @@ export const reducer = createReducer(
       ...state,
       userList: action.users,
     };
-  }),on(UsersPageActions.selectUser, (state,action) => {
+  }),
+  on(UsersPageActions.selectUser, (state, action) => {
     return {
       ...state,
       activeUserId: action.userId,
     };
-  }),on(UsersPageActions.clearSelectedUser, (state,action) => {
+  }),
+  on(UsersPageActions.clearSelectedUser, (state, action) => {
     return {
       ...state,
       activeUserId: null,
     };
-  }),on(UsersApiActions.userCreated, (state, action)=> {
+  }),
+  on(UsersApiActions.userCreated, (state, action) => {
     return {
       userList: createUser(state.userList, action.user),
-      activeUserId:null,
-    }
+      activeUserId: null,
+    };
   }),
-
-
+  on(UsersApiActions.userUpdated, (state, action) => {
+    return {
+      userList: updateUser(state.userList, action.user),
+      activeUserId: null,
+    };
+  })
 );
 
 export const selectAllUsers = (state: State) => state.userList;
 export const selectActiveUserId = (state: State) => state.activeUserId;
 const createUser = (users: UserModel[], user: UserModel) => [...users, user];
+const updateUser = (users: UserModel[], changes: UserModel) =>
+  users.map((user) => {
+    return user.id === changes.id ? { ...user, ...changes } : user;
+  });
