@@ -18,6 +18,10 @@ import { UsersTotalComponent } from './users-total/users-total.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 
+import { SharedStateUsersModule } from './state/shared-state-users/shared-state-users.module';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersApiEffectsService } from './state/effects/users-api-effects.service';
+
 
 @NgModule({
   imports: [
@@ -29,6 +33,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     MatButtonModule,
     MatIconModule,
     MatListModule,
+    SharedStateUsersModule,
+    EffectsModule.forFeature([UsersApiEffectsService]),
   ],
   declarations: [
     UsersPageComponent,

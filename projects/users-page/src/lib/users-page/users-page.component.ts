@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { UserModel, UserRequiredProps } from 'shared-models';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectAllUsersSelector } from '../state/selectors/users-page.selector';
+import * as UsersPageActions from '../state/actions/users-page.actions'
 
 @Component({
   selector: 'lib-users-users-page',
@@ -8,15 +12,15 @@ import { UserModel, UserRequiredProps } from 'shared-models';
   styleUrls: ['./users-page.component.scss']
 })
 export class UsersPageComponent implements OnInit {
-  users:UserModel[] = [];
+  users$: Observable<UserModel[]>;
   selectedUser: UserModel | null= null;
   total = 0;
 
-  constructor(private _userService:UsersService) {
-    this.getAllUsers();
+  constructor(private _userService:UsersService, private store:Store) {
+    this.users$ = store.select(selectAllUsersSelector);
    }
 
-  getAllUsers(){
+  /*getAllUsers(){
     this._userService.getAll().subscribe((users) => {
       this.users = users;
       this.total = 0;
@@ -24,11 +28,11 @@ export class UsersPageComponent implements OnInit {
         this.total += user.salary;
       });
     });
-  }
+  }*/
 
   onDelete(user: UserModel) {
     this._userService.userDelete(user.id).subscribe(() => {
-      this.getAllUsers();
+      //this.getAllUsers();
       this.onCancel();
       alert('User deleted!');
     });
@@ -37,16 +41,16 @@ export class UsersPageComponent implements OnInit {
   onCreate(user:UserRequiredProps | UserModel){
     if('id' in user){
       this._userService.userUpdate(user).subscribe(() => {
-        this.getAllUsers();
+        //this.getAllUsers();
         alert('User updated!');
       });
     }else{
       this._userService.userCreate(user).subscribe(() => {
-        this.getAllUsers();
+        //this.getAllUsers();
         alert('User created!');
       });
     }
-    this.getAllUsers();
+    //this.getAllUsers();
   }
 
   onSelect(user: UserModel) {
@@ -58,6 +62,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(UsersPageActions.enter());
   }
 
 }

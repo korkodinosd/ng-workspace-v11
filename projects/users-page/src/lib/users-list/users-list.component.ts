@@ -8,7 +8,7 @@ import { UserModel } from 'shared-models';
 })
 export class UsersListComponent implements OnInit {
 
-  @Input() users: UserModel[] = [];
+  @Input() users: UserModel[] | null = [];
   @Output() delete = new EventEmitter();
   @Output() select = new EventEmitter();
 
