@@ -5,6 +5,8 @@ import {
 import * as fromReducer from '../reducers/users-page.reducer';
 import * as fromState from '../shared-state-users/shared-state-users.module';
 
+import { calculateUsersGrossSalaries } from 'shared-models';
+
 
 /**
  * Feature Selector
@@ -20,7 +22,7 @@ export const selectUsersState = createSelector(
   );
 export const selectAllUsersSelector = createSelector(
   selectUsersState,
-  fromReducer.selectAllUsers//(userState) => fromUsers.selectAll(userState)
+  fromReducer.selectAllUsers//(userState) => selectAll(userState)
 );
 
 
@@ -37,6 +39,18 @@ export const selectActiveUser = createSelector(
 
 export const selectActiveUserSelector = createSelector(
   selectUsersState,
-  selectActiveUser //(userState) => fromUsers.selectActiveUser(userState)
+  selectActiveUser //(userState) => selectActiveUser(userState)
+);
+
+
+
+
+export const selectSalariesTotal = createSelector(
+  fromReducer.selectAllUsers,
+  calculateUsersGrossSalaries//  (users) =>{    return calculateUsersGrossSalaries(users);  }
+)
+export const selectUserSalariesTotal = createSelector(
+  selectUsersState,
+  selectSalariesTotal//(users) => selectSalariesTotal(userState)
 );
 

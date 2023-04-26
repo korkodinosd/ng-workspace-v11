@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <lib-users-users-total [total]="total"></lib-users-users-total>
+            <lib-users-users-total [total]="total$ | async"></lib-users-users-total>
             <lib-users-users-list [users]="users$ | async" 
                                   (delete)="onDelete($event)"
                                   (select)="onSelect($event)"></lib-users-users-list>

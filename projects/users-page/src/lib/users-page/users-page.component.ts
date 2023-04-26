@@ -3,7 +3,7 @@ import { UsersService } from '../services/users.service';
 import { UserModel, UserRequiredProps } from 'shared-models';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAllUsersSelector, selectActiveUserSelector } from '../state/selectors/users-page.selector';
+import { selectAllUsersSelector, selectActiveUserSelector, selectUserSalariesTotal } from '../state/selectors/users-page.selector';
 import * as UsersPageActions from '../state/actions/users-page.actions';
 
 @Component({
@@ -14,11 +14,12 @@ import * as UsersPageActions from '../state/actions/users-page.actions';
 export class UsersPageComponent implements OnInit {
   users$: Observable<UserModel[]>;
   selectedUser$: Observable<UserModel | null>;
-  total = 0;
+  total$: Observable<number> ;
 
   constructor(private _userService:UsersService, private store:Store) {
     this.users$ = store.select(selectAllUsersSelector);
     this.selectedUser$ = store.select(selectActiveUserSelector);
+    this.total$ = store.select(selectUserSalariesTotal);
    }
 
 

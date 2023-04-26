@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UsersTotalComponent implements OnInit {
 
-  @Input() total = 0;
+  @Input() total: number | null = 0;
 
   constructor() { }
 
